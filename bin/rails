@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/ganttin/environment'
+
+APP_PATH = File.join(Ganttin::Environment.dummy_path, 'config/application')
+require File.join(Ganttin::Environment.dummy_path, 'config/boot')
+require 'rails/commands'
