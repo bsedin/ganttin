@@ -4,7 +4,7 @@ module Ganttin
   describe Task, type: :model do
     context 'should has associations' do
       it { should have_many :members }
-      it { should have_many :time_entries }
+      it { should have_many :stages }
     end
 
     context 'Created task' do

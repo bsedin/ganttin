@@ -6,9 +6,9 @@ module Ganttin
     belongs_to :project
     has_many :task_members, dependent: :destroy
     has_many :members, through: :task_members
-    has_many :time_entries
+    has_many :stages, class_name: 'TaskStage'
 
-    has_unique_identifier :id, length: 12
+    has_unique_identifier :id, length: 12, no_symbols: true
 
     before_create :ensure_number
 

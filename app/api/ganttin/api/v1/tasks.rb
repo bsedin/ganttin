@@ -70,6 +70,8 @@ module Ganttin
             render rabl: 'v1/tasks/show'
           end
         end
+
+        mount V1::TaskStages
       end
     end
   end

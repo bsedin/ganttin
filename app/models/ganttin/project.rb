@@ -7,6 +7,6 @@ module Ganttin
     has_many :project_members, dependent: :destroy
     has_many :members, through: :project_members
 
-    has_unique_identifier :id, length: 12
+    has_unique_identifier :id, length: 6, no_symbols: true
   end
 end

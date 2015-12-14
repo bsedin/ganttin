@@ -5,7 +5,6 @@ module Ganttin
     context 'should has associations' do
       it { should have_many :projects }
       it { should have_many :tasks }
-      it { should have_many :time_entries }
     end
 
     context 'Created user' do

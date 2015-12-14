@@ -57,6 +57,7 @@ module Ganttin
       mount V1::Profile
       mount V1::Projects
       mount V1::Tasks
+      mount V1::TaskStages
     end
   end
 end

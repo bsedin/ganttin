@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210175407) do
+ActiveRecord::Schema.define(version: 20151214195756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,17 @@ ActiveRecord::Schema.define(version: 20151210175407) do
   add_index "task_members", ["task_id"], name: "index_task_members_on_task_id", using: :btree
   add_index "task_members", ["user_id"], name: "index_task_members_on_user_id", using: :btree
 
+  create_table "task_stages", force: :cascade do |t|
+    t.string   "title"
+    t.string   "task_id",                null: false
+    t.integer  "duration",   default: 0, null: false
+    t.integer  "overdue",    default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "task_stages", ["task_id"], name: "index_task_stages_on_task_id", using: :btree
+
   create_table "tasks", force: :cascade do |t|
     t.integer  "number",     default: 1, null: false
     t.string   "project_id"
@@ -50,23 +61,11 @@ ActiveRecord::Schema.define(version: 20151210175407) do
     t.integer  "time_spent", default: 0, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "priority",   default: 0, null: false
   end
 
   add_index "tasks", ["project_id", "number"], name: "index_tasks_on_project_id_and_number", using: :btree
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id", using: :btree
-
-  create_table "time_entries", force: :cascade do |t|
-    t.string   "user_id",                null: false
-    t.string   "project_id",             null: false
-    t.string   "task_id",                null: false
-    t.integer  "duration",   default: 0, null: false
-    t.string   "body"
-    t.datetime "created_at",             null: false
-  end
-
-  add_index "time_entries", ["project_id"], name: "index_time_entries_on_project_id", using: :btree
-  add_index "time_entries", ["task_id"], name: "index_time_entries_on_task_id", using: :btree
-  add_index "time_entries", ["user_id"], name: "index_time_entries_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
@@ -102,8 +101,6 @@ ActiveRecord::Schema.define(version: 20151210175407) do
   add_foreign_key "project_members", "users"
   add_foreign_key "task_members", "tasks"
   add_foreign_key "task_members", "users"
+  add_foreign_key "task_stages", "tasks"
   add_foreign_key "tasks", "projects"
-  add_foreign_key "time_entries", "projects"
-  add_foreign_key "time_entries", "tasks"
-  add_foreign_key "time_entries", "users"
 end
